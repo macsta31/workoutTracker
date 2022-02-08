@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react"
+import WorkoutsContainer from "./components/workoutsContainer"
+import Header from "./components/Header"
+import styled from "styled-components"
+import Form from "./components/AddForm"
+import AddForm from "./components/AddForm"
 
 
 function App() {
 
   const [workouts, setWorkouts] = useState([])
+  const [formState, setFormState] = useState(true)
 
   const workoutsFromDB = () => {
     fetch('http://localhost:5000/api/workouts/')
@@ -51,7 +57,6 @@ function App() {
       method: 'DELETE',
       mode: 'cors',
     })
-    console.log(response)
   }
 
 
@@ -65,20 +70,39 @@ function App() {
     workoutsFromDB()
   }, [])
 
+  const addForm = () => {
+    setFormState(!formState)
+  }
+
+  const submitTraining = async (e) => {
+    e.preventDefault();
+    await postWorkout(e.target.form[0].value)
+  }
+
 
 
   return (
     <>
-      {workouts.map(workout => (
-        <div key={workout._id} style={{color: 'black', display: 'flex', gap: '10px'}}>
-          <>{workout.text}</>
-          <button onClick={() => deleteWorkout(workout._id)} >delete</button>
-        </div>
-      ))}
-      <button style={{marginTop: '10px'}} onClick={() => postWorkout('run')}>submit</button>
-
+      <Header onClick={addForm}/>
+      <StyledContainer>
+        <WorkoutsContainer workouts={workouts} deleteWorkout={deleteWorkout} postWorkout={postWorkout}/>
+        {formState && 
+          <AddForm onClick={(e) => submitTraining(e)}/>
+        }
+      </StyledContainer>
     </>
   );
 }
+
+const StyledContainer = styled.div`
+  self-align: center;
+  padding: 20px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center;
+  gap: 30px;
+
+`
 
 export default App;
