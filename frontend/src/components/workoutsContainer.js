@@ -7,14 +7,18 @@ const WorkoutsContainer = ({workouts, deleteWorkout}) => {
 
   const today = new Date().toISOString().split('T')[0]
 
-  const openModal = (e) => {
-    e.target.nextSibling.style.display = 'block'
-  }
-
-  const closeModal = (e) => {
-    e.target.parentElement.style.display = "none"
-    e.target.parentElement.parentElement.style.display = "none"
-
+  const openModal = async (e) => {
+    console.log(e)
+    if(e.target.nextSibling.nextSibling.style.display === "flex"){
+      e.target.nextSibling.nextSibling.style.display = "none"
+    }
+    else{
+      e.target.nextSibling.nextSibling.style.transform = 'translateX -200px'
+      e.target.nextSibling.nextSibling.style.transition = 'transform 2s'
+      e.target.nextSibling.nextSibling.style.transform = 'translateX 200px'
+      e.target.nextSibling.nextSibling.style.display = "flex";
+         
+    }
   }
 
   return (
@@ -22,17 +26,15 @@ const WorkoutsContainer = ({workouts, deleteWorkout}) => {
         <Title>Today's trainings</Title>
             {workouts.filter(workout => workout.date.split('T')[0] === today).map(filteredWorkouts => (
               <Workout key={filteredWorkouts._id} style={{display: 'flex', justifyContent: 'space-between'}} >
-              <div onClick={openModal} >{filteredWorkouts.text}</div>
+              <WorkoutTitle onClick={openModal} >{filteredWorkouts.text}</WorkoutTitle>
+              <TiDelete style={{flexBasis: '10%', alignSelf: 'right'}} onClick={() => deleteWorkout(filteredWorkouts._id)} size={25} color='red'/>
               <DetailsModal>
                  <ModalContent>
-                  <TiDelete style={{width: '100%', justifySelf: "end"}} onClick={closeModal} size={25} color='red'/>
                    {filteredWorkouts.detail}
                   </ModalContent>
               </DetailsModal>
-              <TiDelete onClick={() => deleteWorkout(filteredWorkouts._id)} size={25} color='red'/>
             </Workout>
-            ))}
-            
+            ))}      
       </Container>
       
       
@@ -51,6 +53,7 @@ const Container = styled.div`
 
 const Workout = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 15px 5px;
   border-bottom: 1px solid grey;
@@ -64,31 +67,27 @@ const Title = styled.h1`
 
 `
 
+const WorkoutTitle = styled.div`
+  flex-basis: 50%
+
+`
+
 const DetailsModal = styled.div`
   display: none;
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0, 0.2)
+  align-items: center;
+  justify-content: flex-start;
+  // transition: transform 2s;
+  // transform: translateX(-200px)
+  // transform: translateX(200px)
+
 
 `
 
 const ModalContent = styled.div`
 
   display: flex;
-  gap: 10px;
-  flex-direction: column;
-  border-radius: 10px;
-  background-color: #fefefe;
-  margin: 100% auto; 
-  padding: 20px;
-  padding-bottom: 40px;
-  border: 1px solid #888;
-  width: 80%;
+  padding: 30px;
 
 
 `

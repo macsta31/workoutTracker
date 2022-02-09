@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 const TrainingSaver = () => {
+  const URL = 'https://60d5-74-57-116-35.ngrok.io'
 
     const [workouts, setWorkouts] = useState([])
   const [formState, setFormState] = useState(true)
@@ -81,6 +82,7 @@ const TrainingSaver = () => {
     await postWorkout(e.target.form[0].value, e.target.form[1].value, e.target.form[2].value)
     e.target.form[0].value = ''
     e.target.form[1].value = ''
+    e.target.form[2].value = ''
 
   }
 

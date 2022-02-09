@@ -44,6 +44,7 @@ const FormControl = styled.div`
 
 `
 const Submit = styled.button`
+  color: black; 
   margin-top: 15px;
   padding: 10px;
   border-radius: 10px;
