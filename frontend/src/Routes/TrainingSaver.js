@@ -15,7 +15,6 @@ const TrainingSaver = () => {
       .then((response) => response.json())
       .then((responseJson => {
         setWorkouts(responseJson)
-        console.log(responseJson)
       }))
   }
 
@@ -30,11 +29,12 @@ const TrainingSaver = () => {
     })
   }
 
-  const postWorkout = async (text, date) => {
+  const postWorkout = async (text, date, detail) => {
 
     var details = {
       'text': text,
       'date': date,
+      'detail': detail
     }
 
     var formBody = []
@@ -77,11 +77,14 @@ const TrainingSaver = () => {
 
   const submitTraining = async (e) => {
     e.preventDefault();
-    await postWorkout(e.target.form[0].value, e.target.form[1].value)
+    console.log(e)
+    await postWorkout(e.target.form[0].value, e.target.form[1].value, e.target.form[2].value)
+    e.target.form[0].value = ''
+    e.target.form[1].value = ''
+
   }
 
   const onSubmit = (e) => {
-    console.log(e)
     e.preventDefault()
   }
 

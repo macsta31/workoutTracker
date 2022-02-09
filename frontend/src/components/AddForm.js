@@ -14,6 +14,8 @@ const AddForm = ({onClick, onSubmit}) => {
         <Input placeholder='High Jump' ></Input>
         <Label>Date</Label>
         <Input type="date"></Input>
+        <Label>Details</Label>
+        <TextArea rows={8} ></TextArea>
         <Submit onClick={(e) => onClick(e)}>Save Training</Submit>
       </FormControl>
 
@@ -51,6 +53,13 @@ const Submit = styled.button`
 
 `
 const Label = styled.label`
+
+
+`
+
+const TextArea = styled.textarea`
+  padding: 10px;
+
 
 
 `

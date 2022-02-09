@@ -19,6 +19,7 @@ const setWorkout = asyncHandler(async (req, res) => {
     const workout = await Workout.create({
         text: req.body.text,
         date: req.body.date,
+        detail: req.body.detail
     })
 
     res.status(200).json(workout)
