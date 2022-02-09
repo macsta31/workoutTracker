@@ -13,11 +13,12 @@ const setWorkout = asyncHandler(async (req, res) => {
 
     if(!req.body.text){
         res.status(400)
-        throw new Error('Please add a text field')
+        throw new Error('Please fill in all fields')
     }
 
     const workout = await Workout.create({
-        text: req.body.text
+        text: req.body.text,
+        date: req.body.date,
     })
 
     res.status(200).json(workout)

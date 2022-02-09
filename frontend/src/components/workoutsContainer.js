@@ -25,13 +25,14 @@ const Container = styled.div`
     padding: 5px;
     justify-content: space-between;
     width: 100%;
+    gap: 10px;
 
 `
 
 const Workout = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 5px;
+  padding: 15px 5px;
   border-bottom: 1px solid grey;
 
 `

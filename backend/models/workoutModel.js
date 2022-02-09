@@ -4,6 +4,10 @@ const workoutSchema = mongoose.Schema({
     text: {
         type: String,
         required: [true, 'Please add text value']
+    },
+    date: {
+        type: Date,
+        required: [true, 'Please fill out date field']
     }
 }, {
     timestamps: true

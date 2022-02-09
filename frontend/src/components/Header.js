@@ -14,6 +14,7 @@ const StyledContainer = styled.div`
     max-width:100%;
     display: flex;
     justify-content: space-between;
+    align-items:center;
     padding: 20px;
     border-bottom: 1px solid grey;
     background-color: #0394fc;
@@ -27,9 +28,11 @@ const Title = styled.h1`
 `
 
 const Button = styled.button`
+    height: min-content;
     border-radius: 20px;
-    border: 1px solid black;
-    padding: 0 15px;
+    border: none;
+    padding: 12px 12px;
+    font-size: 15px;
 
 `
 

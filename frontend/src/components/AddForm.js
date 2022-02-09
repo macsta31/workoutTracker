@@ -1,13 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import 'react-quill/dist/quill.snow.css';
 
-const AddForm = ({onClick}) => {
+
+const AddForm = ({onClick, onSubmit}) => {
+
+
   return (
-  <StyledForm>
+  <StyledForm onSubmit={(e) => onSubmit(e)}>
       <h1 style={{fontSize: '25px', borderBottom: '1px solid black', paddingBottom: '10px'}}>New Training</h1>
       <FormControl>
         <Label>Training Title</Label>
         <Input placeholder='High Jump' ></Input>
+        <Label>Date</Label>
+        <Input type="date"></Input>
         <Submit onClick={(e) => onClick(e)}>Save Training</Submit>
       </FormControl>
 
@@ -36,9 +42,10 @@ const FormControl = styled.div`
 
 `
 const Submit = styled.button`
+  margin-top: 15px;
   padding: 10px;
   border-radius: 10px;
-  border: 1px solid black;
+  border:none;
   font-size: 15px;
   background-color: #0394fc;
 
