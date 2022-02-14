@@ -10,11 +10,11 @@ const AddForm = ({onClick, onSubmit}) => {
   <StyledForm onSubmit={(e) => onSubmit(e)}>
       <h1 style={{fontSize: '25px', borderBottom: '1px solid black', paddingBottom: '10px'}}>New Training</h1>
       <FormControl>
-        <Label>Training Title</Label>
+        <label>Training Title *</label>
         <Input placeholder='High Jump' ></Input>
-        <Label>Date</Label>
-        <Input type="date"></Input>
-        <Label>Details</Label>
+        <label>Date *</label>
+        <Input title='date' type="date"></Input>
+        <label>Details</label>
         <TextArea rows={8} ></TextArea>
         <Submit onClick={(e) => onClick(e)}>Save Training</Submit>
       </FormControl>
@@ -33,6 +33,9 @@ const Input = styled.input`
 
   padding: 10px;
   font-size: 15px;
+  &:focus {
+    border: 1px solid black
+  }
 
 `
 

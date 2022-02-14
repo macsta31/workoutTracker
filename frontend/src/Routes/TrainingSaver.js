@@ -1,18 +1,26 @@
 import React from 'react';
 import Header from '../components/Header';
 import AddForm from '../components/AddForm';
+import SideBar from '../components/SideBar';
 import WorkoutsContainer from '../components/workoutsContainer';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
-const TrainingSaver = () => {
-  const URL = 'https://60d5-74-57-116-35.ngrok.io'
 
-    const [workouts, setWorkouts] = useState([])
+const TrainingSaver = () => {
+  
+
+  const [workouts, setWorkouts] = useState([])
   const [formState, setFormState] = useState(true)
 
   const workoutsFromDB = () => {
-    fetch('http://localhost:5000/api/workouts/')
+    fetch('http://localhost:5000/api/workouts/', {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDdlYTM3NjViMjNmOGFlYWMxOGJmYyIsImlhdCI6MTY0NDY5MzI3NCwiZXhwIjoxNjQ3Mjg1Mjc0fQ.2vPzACgfFlnxG5RBY7Iq-xBuLElmZM0naf0m2ctEsV8'
+      }
+    })
       .then((response) => response.json())
       .then((responseJson => {
         setWorkouts(responseJson)
@@ -78,7 +86,16 @@ const TrainingSaver = () => {
 
   const submitTraining = async (e) => {
     e.preventDefault();
-    console.log(e)
+    console.log(e.target.form[1].style)
+    if(!e.target.form[0].value){
+      e.target.form[0].style.border = '1px solid red'
+      if(!e.target.form[1].value){
+        e.target.form[1].style.border = '1px solid red'
+      }
+      throw new Error('fill out required fields')  
+    }
+    
+
     await postWorkout(e.target.form[0].value, e.target.form[1].value, e.target.form[2].value)
     e.target.form[0].value = ''
     e.target.form[1].value = ''
@@ -90,9 +107,14 @@ const TrainingSaver = () => {
     e.preventDefault()
   }
 
+  
+
+  
   return (
-  <div>
-      <Header onClick={addForm}/>
+  <PageContainer>
+    <SideBar />
+    <div>
+      <Header onClick={addForm} button={true} paddingLeft={'40px'}/>
         <StyledContainer>
         {formState && 
             <AddForm onClick={(e) => submitTraining(e)} onSubmit={(e) => onSubmit(e)}/>
@@ -100,12 +122,12 @@ const TrainingSaver = () => {
           <WorkoutsContainer workouts={workouts} deleteWorkout={deleteWorkout} postWorkout={postWorkout}/>
           
         </StyledContainer>
-  </div>
+    </div>
+  </PageContainer>
     );  
 };
 
 const StyledContainer = styled.div`
-  self-align: center;
   padding: 20px;
   display:flex;
   flex-direction: column;
@@ -113,5 +135,13 @@ const StyledContainer = styled.div`
   justify-content:center;
   gap: 30px;
 `
+
+const PageContainer = styled.div`
+
+`
+
+
+
+
 
 export default TrainingSaver;

@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 const {getWorkouts, setWorkout, updateWorkout, deleteWorkout} = require('../controllers/workoutController')
 
-router.route('/').get(getWorkouts).post(setWorkout)
-router.route('/:id').delete(deleteWorkout).put(updateWorkout)
+const {protect} = require('../middleware/authMiddleware')
+
+router.route('/').get(protect, getWorkouts).post(protect, setWorkout)
+router.route('/:id').delete(protect, deleteWorkout).put(protect, updateWorkout)
 
 module.exports = router

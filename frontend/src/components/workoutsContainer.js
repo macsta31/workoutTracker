@@ -1,30 +1,46 @@
 import React from 'react';
 import styled from 'styled-components'
 import {TiDelete} from 'react-icons/ti'
+import { useEffect, useState } from 'react';
 
 const WorkoutsContainer = ({workouts, deleteWorkout}) => {
 
+  const [date, setDate] = useState('')
 
-  const today = new Date().toISOString().split('T')[0]
 
   const openModal = async (e) => {
-    console.log(e)
     if(e.target.nextSibling.nextSibling.style.display === "flex"){
       e.target.nextSibling.nextSibling.style.display = "none"
     }
     else{
-      e.target.nextSibling.nextSibling.style.transform = 'translateX -200px'
-      e.target.nextSibling.nextSibling.style.transition = 'transform 2s'
-      e.target.nextSibling.nextSibling.style.transform = 'translateX 200px'
       e.target.nextSibling.nextSibling.style.display = "flex";
          
     }
   }
 
+  useEffect(() => {
+    const today_ = new Date().toLocaleString("en-US", {timeZone: "America/New_York"}).split(',')[0].replaceAll('/', '-')
+    let day = today_.split('-')[1]
+    let month =today_.split('-')[0]
+    let year = today_.split('-')[2]
+    if(day.length === 1){
+      day = `0${day}`
+    }
+    if(month.length ===1){
+      month = `0${month}`
+    }
+    
+    
+
+    const today = `${year}-${month}-${day}`
+    setDate(today)
+  }, [])
+  
+
   return (
       <Container>
         <Title>Today's trainings</Title>
-            {workouts.filter(workout => workout.date.split('T')[0] === today).map(filteredWorkouts => (
+            {workouts.filter(workout => workout.date.split('T')[0] === date).map(filteredWorkouts => (
               <Workout key={filteredWorkouts._id} style={{display: 'flex', justifyContent: 'space-between'}} >
               <WorkoutTitle onClick={openModal} >{filteredWorkouts.text}</WorkoutTitle>
               <TiDelete style={{flexBasis: '10%', alignSelf: 'right'}} onClick={() => deleteWorkout(filteredWorkouts._id)} size={25} color='red'/>
