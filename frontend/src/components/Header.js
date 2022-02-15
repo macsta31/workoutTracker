@@ -8,7 +8,6 @@ const Header = ({onClick, button, paddingLeft}) => {
   const [sideBar, setSideBar] = useState(false)
 
     const styleSideBar = (e) => {
-      console.log(e)
         if(!sideBar){
             document.getElementById('sidebarIcon').style.transition = '1s all'
             document.getElementById('sidebarIcon').style.transform = 'rotate(90deg)'
@@ -45,6 +44,7 @@ const StyledContainer = styled.div`
     display: flex;
     padding: 0 10px;
     justify-content: space-between;
+    gap: 10px;
     align-items:center;
     // padding: 20px;
     border-bottom: 1px solid grey;

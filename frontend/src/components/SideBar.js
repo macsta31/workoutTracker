@@ -6,13 +6,24 @@ import { BsFillPersonFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
 
-const SideBar = () => {
+const SideBar = ({ token }) => {
+
+  const logout = () => {
+    window.sessionStorage.removeItem('token')
+    window.sessionStorage.removeItem('name')
+    window.location.reload()
+  }
 
     
   return (
     <SideBarContainer id='sidebar'>
       <Container>
-        <Link to="/login" style={{ textDecoration: 'none' }} ><LoginButton>Login <BsFillPersonFill size={20}/></LoginButton></Link>
+        { !token ? <Link to="/login" style={{ textDecoration: 'none' }} ><Button>Login <BsFillPersonFill size={20}/></Button></Link> : 
+          <div>
+            <p>{window.sessionStorage.getItem('name')}</p>
+            <Button onClick={logout}>logout</Button>
+          </div>
+        }
         <Nav>
 
         </Nav>
@@ -43,7 +54,7 @@ const Nav = styled.nav`
 
 
 `
-const LoginButton = styled.button`
+const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;

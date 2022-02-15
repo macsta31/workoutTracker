@@ -7,18 +7,18 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 
-const TrainingSaver = () => {
+const TrainingSaver = ({ token }) => {
   
 
   const [workouts, setWorkouts] = useState([])
   const [formState, setFormState] = useState(true)
 
-  const workoutsFromDB = () => {
-    fetch('http://localhost:5000/api/workouts/', {
+  const workoutsFromDB = async () => {
+    await fetch('http://localhost:5000/api/workouts/', {
       method: 'GET',
       mode: 'cors',
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDdlYTM3NjViMjNmOGFlYWMxOGJmYyIsImlhdCI6MTY0NDY5MzI3NCwiZXhwIjoxNjQ3Mjg1Mjc0fQ.2vPzACgfFlnxG5RBY7Iq-xBuLElmZM0naf0m2ctEsV8'
+        'Authorization': `Bearer ${token}`
       }
     })
       .then((response) => response.json())
@@ -32,6 +32,7 @@ const TrainingSaver = () => {
       method: 'POST',
       mode: 'cors',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: formBody
@@ -56,14 +57,16 @@ const TrainingSaver = () => {
 
     await postToDB(formBody)
 
-    workoutsFromDB(); 
-
+    await workoutsFromDB(); 
     
 
   }
 
   const removeFromDB = async (id) => {
     const response = await fetch(`http://localhost:5000/api/workouts/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
       method: 'DELETE',
       mode: 'cors',
     })
@@ -77,7 +80,9 @@ const TrainingSaver = () => {
   }
 
   useEffect(() => {
+    if(window.sessionStorage.getItem('token')){
     workoutsFromDB()
+    }
   }, [])
 
   const addForm = () => {
@@ -86,9 +91,10 @@ const TrainingSaver = () => {
 
   const submitTraining = async (e) => {
     e.preventDefault();
-    console.log(e.target.form[1].style)
-    if(!e.target.form[0].value){
+    if(!e.target.form[0].value || !e.target.form[1].value){
+      if(!e.target.form[0].value){
       e.target.form[0].style.border = '1px solid red'
+      }
       if(!e.target.form[1].value){
         e.target.form[1].style.border = '1px solid red'
       }
@@ -112,14 +118,14 @@ const TrainingSaver = () => {
   
   return (
   <PageContainer>
-    <SideBar />
+    <SideBar token={token} />
     <div>
       <Header onClick={addForm} button={true} paddingLeft={'40px'}/>
         <StyledContainer>
         {formState && 
             <AddForm onClick={(e) => submitTraining(e)} onSubmit={(e) => onSubmit(e)}/>
           }
-          <WorkoutsContainer workouts={workouts} deleteWorkout={deleteWorkout} postWorkout={postWorkout}/>
+          <WorkoutsContainer workouts={workouts} deleteWorkout={deleteWorkout} postWorkout={postWorkout} token={token}/>
           
         </StyledContainer>
     </div>

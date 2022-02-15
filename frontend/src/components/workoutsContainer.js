@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {TiDelete} from 'react-icons/ti'
 import { useEffect, useState } from 'react';
 
-const WorkoutsContainer = ({workouts, deleteWorkout}) => {
+const WorkoutsContainer = ({workouts, deleteWorkout, token}) => {
 
   const [date, setDate] = useState('')
 
@@ -46,7 +46,9 @@ const WorkoutsContainer = ({workouts, deleteWorkout}) => {
               <TiDelete style={{flexBasis: '10%', alignSelf: 'right'}} onClick={() => deleteWorkout(filteredWorkouts._id)} size={25} color='red'/>
               <DetailsModal>
                  <ModalContent>
-                   {filteredWorkouts.detail}
+                   {filteredWorkouts.detail.split('\n').map(detail => (
+                     <li key={Math.floor(Math.random()*10000)-1} >{detail}</li>
+                   ))}
                   </ModalContent>
               </DetailsModal>
             </Workout>
@@ -93,17 +95,15 @@ const DetailsModal = styled.div`
   width: 100%;
   align-items: center;
   justify-content: flex-start;
-  // transition: transform 2s;
-  // transform: translateX(-200px)
-  // transform: translateX(200px)
-
 
 `
 
-const ModalContent = styled.div`
+const ModalContent = styled.ul`
 
   display: flex;
-  padding: 30px;
+  flex-direction: column;
+  gap: 0.5em;
+  list-style: decimal-leading-zero;
 
 
 `

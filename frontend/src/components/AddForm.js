@@ -11,10 +11,10 @@ const AddForm = ({onClick, onSubmit}) => {
       <h1 style={{fontSize: '25px', borderBottom: '1px solid black', paddingBottom: '10px'}}>New Training</h1>
       <FormControl>
         <label>Training Title *</label>
-        <Input placeholder='High Jump' ></Input>
+        <Input id='titleInput' placeholder='High Jump' ></Input>
         <label>Date *</label>
-        <Input title='date' type="date"></Input>
-        <label>Details</label>
+        <Input autoComplete='off' id='dateInput' title='date' type="date"></Input>
+        <label id='detailsInput'  >Details</label>
         <TextArea rows={8} ></TextArea>
         <Submit onClick={(e) => onClick(e)}>Save Training</Submit>
       </FormControl>

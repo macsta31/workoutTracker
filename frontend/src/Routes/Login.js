@@ -1,52 +1,78 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect } from 'react'
+import { useState, useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Header from '../components/Header'
+import SideBar from '../components/SideBar'
 
-const Login = ({onLogin, onRegister}) => {
+const Login = ({onLogin, onRegister, token}) => {
+const navigate = useNavigate()
     
-    const [login, setLogin] = useState(false)
+    
+    const [login, setLogin] = useState(true)
+
+    const changeToRegister = () => {
+        
+        document.getElementById('usernameRegister').value = ''
+        document.getElementById('emailRegister').value = ''
+        setLogin(true)
+    }
+
+    useEffect(() => {
+        if(window.sessionStorage.getItem('token')) {
+            navigate(`/`)
+        }
+    }, [])
+
+    const changeToLogin = () => {
+        
+        document.getElementById('emailLogin').value = ''
+        document.getElementById('passwordLogin').value = ''
+        setLogin(false)
+    }
+
   return (
     <Screen>
-        
+        <SideBar token={token} />
         <Header />
         {!login ?
         <Container>
             
             <Title>Register</Title>
-            <LoginForm onSubmit={onRegister}>
+            <LoginForm onSubmit={onRegister} autoComplete="off">
                 <FormControl>
                     <Label>Username</Label>
-                    <Input></Input>
+                    <Input id="usernameRegister"></Input>
                 </FormControl>
                 <FormControl>
                     <Label>Email</Label>
-                    <Input></Input>
+                    <Input type='email' id="emailRegister" ></Input>
                 </FormControl>
                 <FormControl>
                     <Label>Password</Label>
-                    <Input></Input>
+                    <Input type='password' name="password" autoComplete='on' id='passwordRegister'></Input>
                 </FormControl>
                 <SubmitButton>Sign Up</SubmitButton>
             </LoginForm>
-            <p onClick={() => setLogin(true)} style={{borderBottom: '1px solid black'}}>Already have an account? Login!</p>
+            <P onClick={changeToRegister} style={{borderBottom: '1px solid black'}}>Already have an account? Login!</P>
+            
         </Container>
             :
         <Container>
             
             <Title>Login</Title>
-            <LoginForm onSubmit={onLogin}>
+            <LoginForm onSubmit={onLogin} autoComplete='off'>
                 <FormControl>
                     <Label>Email</Label>
-                    <Input></Input>
+                    <Input type='email' name="password" id='emailLogin' ></Input>
                 </FormControl>
                 <FormControl>
                     <Label>Password</Label>
-                    <Input></Input>
+                    <Input type='password' name='password' id='passwordLogin' autoComplete='on'></Input>
                 </FormControl>
                 <SubmitButton type='submit'>Login</SubmitButton>
             </LoginForm>
-            <p onClick={() => setLogin(false)} style={{borderBottom: '1px solid black'}}>New here? Signup!</p>
+            <P onClick={changeToLogin} style={{borderBottom: '1px solid black'}}>New here? Signup!</P>
         </Container>}
         
     </Screen>
@@ -100,6 +126,12 @@ const SubmitButton = styled.button`
 const Title = styled.h1`
     padding-bottom: 15px;
     border-bottom: 1px solid black;
+
+`
+const P = styled.p`
+    &:hover{
+        cursor: pointer
+    }
 
 `
 
