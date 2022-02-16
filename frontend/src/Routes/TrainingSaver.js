@@ -14,7 +14,7 @@ const TrainingSaver = ({ token }) => {
   const [formState, setFormState] = useState(true)
 
   const workoutsFromDB = async () => {
-    await fetch('http://localhost:5000/api/workouts/', {
+    await fetch('https://kinesios.uk.r.appspot.com/api/workouts/', {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -28,7 +28,7 @@ const TrainingSaver = ({ token }) => {
   }
 
   const postToDB = async (formBody) => {
-    const response = await fetch('http://localhost:5000/api/workouts/', {
+    const response = await fetch('https://kinesios.uk.r.appspot.com/api/workouts/', {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -63,7 +63,7 @@ const TrainingSaver = ({ token }) => {
   }
 
   const removeFromDB = async (id) => {
-    const response = await fetch(`http://localhost:5000/api/workouts/${id}`, {
+    const response = await fetch(`https://kinesios.uk.r.appspot.com/api/workouts/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       },

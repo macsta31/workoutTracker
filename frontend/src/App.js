@@ -16,7 +16,7 @@ function App() {
   const [token, setToken] = useState(window.sessionStorage.getItem('token'))
 
   const postLogin = async(formBody) => {
-    await fetch('http://localhost:5000/api/users/login', {
+    await fetch('https://kinesios.uk.r.appspot.com/api/users/login', {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -58,7 +58,7 @@ function App() {
 
   }
   const postRegister = async (formBody) => {
-    await fetch('http://localhost:5000/api/users', {
+    await fetch('https://kinesios.uk.r.appspot.com/api/users', {
       method: 'POST',
       mode: 'cors',
       headers: {
