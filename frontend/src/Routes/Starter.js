@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from '../components/Header';
 import onyourmarks from '/Users/mack/Desktop/workoutTracker/frontend/src/audio/onyourmarks.mp3'
 import set from '/Users/mack/Desktop/workoutTracker/frontend/src/audio/set.mp3'
 import bang from '/Users/mack/Desktop/workoutTracker/frontend/src/audio/bang.mp3'
@@ -26,9 +27,7 @@ const Starter = () => {
     
   return (
     <div>
-        <Header>
-            <Title>Starter</Title>
-        </Header>
+        <Header title={'Track Gun'} />
         <Container>
             <Button onClick={startSequence}>Start</Button>
         </Container>
@@ -53,15 +52,6 @@ const Button = styled.button`
     border-radius: 50px;
     background-color:#0394fc;
     font-size: 30px;
-
-
-`
-const Header = styled.header`
-    min-height: 10vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background-color: #0394fc;
 
 
 `

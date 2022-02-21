@@ -120,7 +120,8 @@ const TrainingSaver = ({ token }) => {
   <PageContainer>
     <SideBar token={token} />
     <div>
-      <Header onClick={addForm} button={true} paddingLeft={'40px'}/>
+      <Header onClick={addForm} button={true} paddingLeft={'40px'} title={'Kinesios'} justifyContent={'space-between'}/>
+      <Div>
         <StyledContainer>
         {formState && 
             <AddForm onClick={(e) => submitTraining(e)} onSubmit={(e) => onSubmit(e)}/>
@@ -128,6 +129,7 @@ const TrainingSaver = ({ token }) => {
           <WorkoutsContainer workouts={workouts} deleteWorkout={deleteWorkout} postWorkout={postWorkout} token={token}/>
           
         </StyledContainer>
+      </Div>
     </div>
   </PageContainer>
     );  
@@ -139,11 +141,21 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content:center;
+  max-width: 500px;
+  min-width: 90vw;
   gap: 30px;
+  transform: translateX(-3px);
 `
 
 const PageContainer = styled.div`
 
+`
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  align-items: center;
 `
 
 

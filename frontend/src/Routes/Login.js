@@ -34,7 +34,7 @@ const navigate = useNavigate()
   return (
     <Screen>
         <SideBar token={token} />
-        <Header />
+        <Header title={'Kinesios'}/>
         {!login ?
         <Container>
             
@@ -111,6 +111,7 @@ const Input = styled.input`
     border: 1px solid black;
     border-radius: 5px;
     padding: 8px;
+    font-size: 16px;
 
 `
 const SubmitButton = styled.button`

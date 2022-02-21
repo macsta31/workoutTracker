@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IoReorderThreeOutline } from 'react-icons/io5'
 import { useState } from 'react';
 
-const Header = ({onClick, button, paddingLeft}) => {
+const Header = ({onClick, button, title, justifyContent}) => {
 
   const [sideBar, setSideBar] = useState(false)
 
@@ -11,19 +11,25 @@ const Header = ({onClick, button, paddingLeft}) => {
         if(!sideBar){
             document.getElementById('sidebarIcon').style.transition = '1s all'
             document.getElementById('sidebarIcon').style.transform = 'rotate(90deg)'
+            document.getElementById('sidebarIcon').style.zIndex = '4'
             document.getElementById('sidebar').style.transition = '1s all'
+            document.getElementById('icon').style.zIndex = '4'
             document.getElementById('icon').style.transition = '1s all'
-            document.getElementById('sidebar').style.backgroundColor = 'rgba(250, 250, 250, 0.95)'
+            document.getElementById('sidebar').style.backgroundColor = 'white'
+            document.getElementById('sidebar').style.zIndex = '3'
             document.getElementById('sidebar').style.transform = 'translateX(75vw)'
-            document.getElementById('icon').style.transform = 'translateX(65vw)'
+            document.getElementById('icon').style.transform = 'translateX(63vw)'
             setSideBar(true)
         }
         else{
             document.getElementById('sidebarIcon').style.transition = '1s all'
             document.getElementById('sidebarIcon').style.transform = 'rotate(0deg)'
+            document.getElementById('sidebarIcon').style.zIndex = '0'
             document.getElementById('sidebar').style.transition = '1s all'
             document.getElementById('icon').style.transition = '1s all'
+            document.getElementById('icon').style.zIndex = '0'
             document.getElementById('sidebar').style.backgroundColor = 'transparent'
+            document.getElementById('sidebar').style.zIndex = '0'
             document.getElementById('sidebar').style.transform = 'translateX(0vw)'
             document.getElementById('icon').style.transform = 'translateX(0vw)'
             setSideBar(false)
@@ -31,9 +37,9 @@ const Header = ({onClick, button, paddingLeft}) => {
         }
 
   return (
-  <StyledContainer>
+  <StyledContainer style={{justifyContent: justifyContent}}>
     <IconContainer id='icon'><IoReorderThreeOutline id='sidebarIcon' onClick={styleSideBar} size={30} /></IconContainer> 
-    <Title style={{paddingLeft: paddingLeft}}>Workout Tracker</Title>
+    <Title>{title}</Title>
     {button && <Button onClick={onClick} >Add Workout</Button>}
   </StyledContainer>
     );

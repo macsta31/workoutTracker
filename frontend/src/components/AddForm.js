@@ -32,10 +32,10 @@ const StyledForm = styled.form`
 const Input = styled.input`
 
   padding: 10px;
-  font-size: 15px;
   &:focus {
     border: 1px solid black
   }
+  font-size: 16px;
 
 `
 
@@ -63,6 +63,7 @@ const Label = styled.label`
 
 const TextArea = styled.textarea`
   padding: 10px;
+  font-size: 16px;
 
 
 

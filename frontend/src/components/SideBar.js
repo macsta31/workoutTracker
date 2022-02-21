@@ -37,7 +37,7 @@ const SideBarContainer = styled.div`
   justify-content: space-between;
   padding: 15px;
   position: fixed;
-  left: -75vw;
+  left: -80vw;
   width: 72vw;
   height: 100vh;
   background-color:transparent;
